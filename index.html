@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ภูขจรเจริญยนต์ - รถบรรทุกมือสองคุณภาพเกรด A</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: "#E63946",
+          "primary-dark": "#c1121f",
+        },
+        fontFamily: {
+          sans: ["Sukhumvit Set", "Noto Sans Thai", "sans-serif"],
+        },
+      },
+    },
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet"/>
+<style>
+  @font-face { font-family: 'Sukhumvit Set'; src: local('Sukhumvit Set'), local('SukhumvitSet'); }
+  body { font-family: 'Sukhumvit Set', 'Noto Sans Thai', sans-serif; }
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal; font-style: normal;
+    font-size: 24px; display: inline-block;
+    line-height: 1; text-transform: none;
+    letter-spacing: normal; word-wrap: normal;
+    white-space: nowrap; direction: ltr;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  html { scroll-behavior: smooth; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: #E63946; border-radius: 2px; }
+</style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+<!-- ══════════ NAVBAR ══════════ -->
+<header class="fixed top-0 w-full z-50 bg-[#E63946] shadow-md">
+  <div class="flex justify-between items-center h-20 px-4 md:px-16 max-w-7xl mx-auto">
+    <a href="#home" class="flex items-center gap-3">
+      <img alt="โลโก้ภูขจรเจริญยนต์" class="h-20 w-20 object-contain" src="logo_transparent.png"/>
+      <div class="leading-tight">
+        <div class="font-bold text-white text-xl">ภูขจรเจริญยนต์</div>
+        <div class="text-sm text-white/70 font-normal">จำหน่ายรถบรรทุกมือสองคัดพิเศษ เกรด A</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-white font-semibold text-sm hover:text-white/80 transition-colors" href="#home">หน้าแรก</a>
+      <a class="text-white/80 font-semibold text-sm hover:text-white transition-colors" href="#why">จุดเด่น</a>
+      <a class="text-white/80 font-semibold text-sm hover:text-white transition-colors" href="#stock">ประเภทรถ</a>
+      <a class="text-white/80 font-semibold text-sm hover:text-white transition-colors" href="#process">ขั้นตอนการซื้อ</a>
+    </nav>
+    <a href="tel:0834565049" class="flex items-center gap-2 bg-white text-[#E63946] px-5 py-2.5 rounded font-semibold text-sm hover:bg-gray-100 transition-colors shadow-sm">
+      <span class="material-symbols-outlined" style="font-size:18px">call</span>
+      โทรด่วน !!!
+    </a>
+  </div>
+</header>
+
+<main class="pt-20">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="relative pt-20 pb-28 px-4 md:px-16 overflow-hidden" id="home">
+    <!-- รูปพื้นหลังร้าน -->
+    <div class="absolute inset-0 z-0">
+      <img src="shop.webp" alt="ร้านภูขจรเจริญยนต์" class="w-full h-full object-cover" style="object-position: calc(50% + 1cm) bottom;"/>
+    </div>
+    <!-- overlay ให้อ่านข้อความได้ชัด -->
+    <div class="absolute inset-0 z-0 bg-gradient-to-b from-white/40 via-white/50 to-white/90"></div>
+    <div class="max-w-7xl mx-auto relative z-10 text-center flex flex-col items-center">
+      <img src="logo_transparent.png" alt="โลโก้ภูขจรเจริญยนต์" class="mb-4 w-full max-w-lg" style="margin-top: calc(-8rem - 1cm); filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3));" style="filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3));"/>
+      <h1 class="text-2xl md:text-5xl font-black text-gray-900 mb-6 max-w-3xl leading-tight">
+        รับซื้อ-ขาย รถบรรทุกมือสองคุณภาพดี<br/>
+        <span class="whitespace-nowrap"><span class="text-[#E63946]">คัดพิเศษ เกรด A</span> เท่านั้น</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+        ภูขจรเจริญยนต์ คัดสรรรถบรรทุกมือสองเกรด A ทุกคันผ่านการตรวจสอบอย่างละเอียด
+        พร้อมใช้งานทันที บริการให้คำปรึกษาฟรี และเอกสารครบถ้วน
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        <a href="#stock" class="bg-[#E63946] text-white px-8 py-4 rounded font-bold text-base hover:bg-[#c1121f] transition-colors shadow-md text-center">
+          🚛 ประเภทรถที่ขาย
+        </a>
+        <a href="tel:0834565049" class="bg-white border-2 border-gray-300 text-gray-900 px-8 py-4 rounded font-bold text-base hover:border-[#E63946] hover:text-[#E63946] transition-colors text-center">
+          📞 โทรสอบถาม
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SLOGAN BANNER ══════════ -->
+  <section class="bg-[#E63946] py-6 px-4 md:px-16">
+    <div class="max-w-7xl mx-auto text-center">
+      <p class="text-white text-lg md:text-2xl font-black tracking-wide leading-relaxed">
+        รถต้องเดิม &nbsp;·&nbsp; เครื่องต้องดี &nbsp;·&nbsp; แชสซีต้องสวย &nbsp;·&nbsp; ไมล์ต้องน้อย &nbsp;·&nbsp; พร้อมใช้งานทันที
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS BAR ══════════ -->
+  <section class="border-y border-gray-200 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-16 py-8">
+      <div class="flex justify-between items-center text-center">
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <span class="material-symbols-outlined text-[#E63946] text-4xl">sell</span>
+          <span class="font-bold text-gray-900 text-sm">ขายมากกว่า 1000 คัน</span>
+        </div>
+        <div class="w-px h-12 bg-gray-200"></div>
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <span class="material-symbols-outlined text-[#E63946] text-4xl">verified</span>
+          <span class="font-bold text-gray-900 text-sm">เกรด A คัดพิเศษ</span>
+        </div>
+        <div class="w-px h-12 bg-gray-200"></div>
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <span class="material-symbols-outlined text-[#E63946] text-4xl">description</span>
+          <span class="font-bold text-gray-900 text-sm">เอกสารครบถ้วน</span>
+        </div>
+        <div class="w-px h-12 bg-gray-200"></div>
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <span class="material-symbols-outlined text-[#E63946] text-4xl">support_agent</span>
+          <span class="font-bold text-gray-900 text-sm">ให้คำปรึกษาฟรี</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WHY US ══════════ -->
+  <section class="py-10 px-4 md:px-16 bg-white" id="why">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-14 text-center">
+        <span class="inline-block px-4 py-2 bg-[#E63946]/10 text-[#E63946] text-sm font-bold uppercase tracking-widest rounded mb-4">ซื้อรถบรรทุกกับภูขจรเจริญยนต์ดียังไง ?</span>
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">มาตรฐาน<span class="text-[#E63946]">ที่ไว้วางใจ</span>ได้</h2>
+        <p class="text-gray-500 text-base max-w-lg mx-auto">ภูขจรเจริญยนต์ ไม่ได้แค่ขายรถทั่วไป แต่เฮียภูขจรเจ้าของร้าน คัดเลือกที่มีสภาพดีๆ ด้วยตัวเองทุกคัน เพื่อให้ลูกค้าได้เลือกรถสภาพดี ไปใช้งานตามความต้องการ</p>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center hover:border-[#E63946]/40 hover:shadow-md transition-all">
+          <div class="w-16 h-16 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:32px">search</span>
+          </div>
+          <h3 class="font-bold text-gray-900 text-sm">ผ่านการตรวจสอบสภาพ</h3>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center hover:border-[#E63946]/40 hover:shadow-md transition-all">
+          <div class="w-16 h-16 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:32px">workspace_premium</span>
+          </div>
+          <h3 class="font-bold text-gray-900 text-sm">เกรด A คัดพิเศษ</h3>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center hover:border-[#E63946]/40 hover:shadow-md transition-all">
+          <div class="w-16 h-16 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:32px">support_agent</span>
+          </div>
+          <h3 class="font-bold text-gray-900 text-sm">ให้คำปรึกษาฟรี</h3>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center hover:border-[#E63946]/40 hover:shadow-md transition-all">
+          <div class="w-16 h-16 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:32px">description</span>
+          </div>
+          <h3 class="font-bold text-gray-900 text-sm">เอกสารครบถ้วน</h3>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center hover:border-[#E63946]/40 hover:shadow-md transition-all">
+          <div class="w-16 h-16 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:32px">payments</span>
+          </div>
+          <h3 class="font-bold text-gray-900 text-sm">ราคาโปร่งใส</h3>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center hover:border-[#E63946]/40 hover:shadow-md transition-all">
+          <div class="w-16 h-16 bg-[#E63946]/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:32px">bolt</span>
+          </div>
+          <h3 class="font-bold text-gray-900 text-sm">ดำเนินการรวดเร็ว</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STOCK ══════════ -->
+  <section class="py-16 px-4 md:px-16 bg-gray-50" id="stock">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-8">
+        <span class="inline-block px-3 py-1 bg-[#E63946]/10 text-[#E63946] text-xs font-bold uppercase tracking-widest rounded mb-3">ภูขจรเจริญยนต์ขายรถอะไรบ้าง?</span>
+        <h2 class="text-2xl md:text-3xl font-black text-gray-900 mb-2">ประเภทรถ<span class="text-[#E63946]">ที่ร้านเราขาย</span></h2>
+        <p class="text-gray-500">รถบรรทุกคัดพิเศษ เกรด A พร้อมใช้งานทันที อัปเดตใหม่ทุกวันบน FACEBOOK</p>
+      </div>
+      <!-- หมวด: 4 ล้อ จัมโบ้ -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-1 h-6 bg-[#E63946] rounded"></div>
+          <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 4 ล้อ จัมโบ้ (ISUZU / HINO)</h3>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-gray-100 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-gray-300" style="font-size:56px">local_shipping</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span>
+              <div class="font-bold text-gray-900 text-sm">4 ล้อ จัมโบ้ แบบตู้</div>
+              <div class="text-xs text-gray-500 mt-0.5">ตู้แห้ง / ตู้เย็น</div>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-gray-100 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-gray-300" style="font-size:56px">local_shipping</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span>
+              <div class="font-bold text-gray-900 text-sm">4 ล้อ จัมโบ้ แบบคอก</div>
+              <div class="text-xs text-gray-500 mt-0.5">คอกเหล็ก / คอกไม้</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- หมวด: 6 ล้อ ISUZU -->
+      <div class="mb-10">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-1 h-6 bg-[#E63946] rounded"></div>
+          <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 6 ล้อ ISUZU (ความยาว 3-9 เมตร)</h3>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU NMR130</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU NPR150</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU NQR175</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU FRR190</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU FRR210</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU FTR240</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- หมวด: 6 ล้อ HINO -->
+      <div class="mb-4">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-1 h-6 bg-[#E63946] rounded"></div>
+          <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 6 ล้อ HINO (ความยาว 3-9 เมตร)</h3>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Dominator FC9J 155</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Dominator FC9J 175</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Dominator FC9J 210</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
+              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
+              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
+            </div>
+            <div class="p-3 text-center">
+              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Victor FG8J 240</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <a href="https://www.facebook.com/p/%E0%B8%A0%E0%B8%B9%E0%B8%82%E0%B8%88%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B9%8C-%E0%B8%A3%E0%B8%96%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87-100086605624902/" target="_blank"
+           class="inline-flex items-center gap-3 bg-[#1877F2] text-white px-10 py-4 rounded-full font-black text-lg shadow-lg hover:bg-[#0f5bbf] hover:scale-105 transition-all duration-200 animate-pulse" style="animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; box-shadow: 0 0 0 4px rgba(24,119,242,0.25), 0 4px 24px rgba(24,119,242,0.4);">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:24px;height:24px;flex-shrink:0"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          ดูรถที่จริงขายบน FACEBOOK
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="pt-14 pb-4 px-4 md:px-16 bg-white" id="process">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-10 text-center" style="margin-top: calc(-2cm)">
+        <span class="inline-block px-5 py-2 bg-[#E63946]/10 text-[#E63946] text-base font-bold uppercase tracking-widest rounded mb-4">สนใจสั่งซื้อทำยังไงบ้าง?</span>
+        <h2 class="text-2xl md:text-3xl font-black text-gray-900 mb-2">ซื้อง่าย <span class="text-[#E63946]">4 ขั้นตอน</span></h2>
+        <p class="text-gray-500 text-sm">ไม่ยุ่งยาก มีทีมงานช่วยดูแลทุกขั้นตอน ตั้งแต่เลือกรถจนรับรถกลับบ้านไปใช้งาน</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+        <!-- connector line desktop -->
+        <div class="hidden lg:block absolute top-7 left-[18%] right-[18%] h-px bg-gradient-to-r from-[#E63946] via-gray-200 to-[#E63946] opacity-30"></div>
+
+        <div class="text-center group">
+          <div class="w-14 h-14 rounded-full border-2 border-gray-200 bg-white flex items-center justify-center mx-auto mb-5 text-[#E63946] font-black text-lg group-hover:border-[#E63946] group-hover:bg-[#E63946] group-hover:text-white transition-all relative z-10">01</div>
+          <h3 class="font-bold text-gray-900 mb-2">ติดต่อสอบถาม</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">โทร / ไลน์ / Facebook บอกความต้องการให้ทางร้านทราบ</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-14 h-14 rounded-full border-2 border-gray-200 bg-white flex items-center justify-center mx-auto mb-5 text-[#E63946] font-black text-lg group-hover:border-[#E63946] group-hover:bg-[#E63946] group-hover:text-white transition-all relative z-10">02</div>
+          <h3 class="font-bold text-gray-900 mb-2">เลือกรถ และ ดูรถ</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">สามารถนัดดูรถที่ร้าน หรือวิดีโอคอลผ่านทางไลน์ได้ เพื่อให้ทางร้านแนะนำรถที่เหมาะสม ตรงความต้องการของลูกค้า</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-14 h-14 rounded-full border-2 border-gray-200 bg-white flex items-center justify-center mx-auto mb-5 text-[#E63946] font-black text-lg group-hover:border-[#E63946] group-hover:bg-[#E63946] group-hover:text-white transition-all relative z-10">03</div>
+          <h3 class="font-bold text-gray-900 mb-2">พูดคุยเงื่อนไขการซื้อขาย</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">ตกลงราคา และ ทำข้อตกลงในการซื้อขาย</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-14 h-14 rounded-full border-2 border-gray-200 bg-white flex items-center justify-center mx-auto mb-5 text-[#E63946] font-black text-lg group-hover:border-[#E63946] group-hover:bg-[#E63946] group-hover:text-white transition-all relative z-10">04</div>
+          <h3 class="font-bold text-gray-900 mb-2">ส่งมอบรถให้ลูกค้า</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">นัดรับรถที่ร้าน หรือ ให้ทางร้านส่งรถถึงหน้าบ้าน</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section class="pt-4 pb-8 px-4 md:px-16 bg-gray-50" id="contact">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 gap-8">
+        <div>
+          <span class="inline-block px-2 py-0.5 bg-[#E63946]/10 text-[#E63946] text-xs font-bold uppercase tracking-widest rounded mb-3">ติดต่อเรา</span>
+          <h2 class="text-xl md:text-2xl font-black text-gray-900 mb-3">สามารถติดต่อได้<br/><span class="text-[#E63946]">24 ชั่วโมง</span></h2>
+          <p class="text-gray-500 mb-8 leading-relaxed text-sm">สนใจรถ หรือ อยากได้คำแนะนำ เรื่องรถบรรทุก สามารถติดต่อได้ตลอด 24 ชั่วโมง</p>
+          <div class="flex flex-col gap-4">
+            <a href="tel:0834565049" class="flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-4 hover:border-[#E63946]/50 hover:shadow-md transition-all group">
+              <div class="w-11 h-11 bg-green-500 border border-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-white" style="font-size:22px">call</span>
+              </div>
+              <div class="flex-1">
+                <div class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-0.5">โทรศัพท์</div>
+                <div class="font-bold text-gray-900">083-456-5049 (คุณสุภาพ)</div>
+              </div>
+              <span class="material-symbols-outlined text-gray-300 group-hover:text-[#E63946] transition-colors">chevron_right</span>
+            </a>
+            <a href="https://line.me/ti/p/0834565049" target="_blank" class="flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-4 hover:border-[#E63946]/50 hover:shadow-md transition-all group">
+              <div class="w-11 h-11 bg-[#00B900] border border-[#00B900] rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="font-black text-white text-sm">LINE</span>
+              </div>
+              <div class="flex-1">
+                <div class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-0.5">LINE ID</div>
+                <div class="font-bold text-gray-900">0834565049</div>
+              </div>
+              <span class="material-symbols-outlined text-gray-300 group-hover:text-[#E63946] transition-colors">chevron_right</span>
+            </a>
+            <a href="https://www.facebook.com/p/%E0%B8%A0%E0%B8%B9%E0%B8%82%E0%B8%88%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B9%8C-%E0%B8%A3%E0%B8%96%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87-100086605624902/" target="_blank"
+               class="flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-4 hover:border-[#E63946]/50 hover:shadow-md transition-all group">
+              <div class="w-11 h-11 bg-[#1877F2] border border-[#1877F2] rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="font-black text-white text-xl">f</span>
+              </div>
+              <div class="flex-1">
+                <div class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-0.5">Facebook</div>
+                <div class="font-bold text-gray-900">ภูขจรเจริญยนต์ รถบรรทุกมือสอง</div>
+              </div>
+              <span class="material-symbols-outlined text-gray-300 group-hover:text-[#E63946] transition-colors">chevron_right</span>
+            </a>
+            <a href="https://www.tiktok.com/@phukhajorn.charoenyon" target="_blank"
+               class="flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-4 hover:border-[#E63946]/50 hover:shadow-md transition-all group">
+              <div class="w-11 h-11 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg viewBox="0 0 24 24" fill="white" style="width:20px;height:20px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+              </div>
+              <div class="flex-1">
+                <div class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-0.5">TikTok</div>
+                <div class="font-bold text-gray-900">ภูขจรเจริญยนต์ รถบรรทุกมือสอง</div>
+              </div>
+              <span class="material-symbols-outlined text-gray-300 group-hover:text-[#E63946] transition-colors">chevron_right</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="bg-white border-t border-gray-200 py-8 px-4 md:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col items-center text-center mb-6">
+      <img src="logo.jpg" alt="โลโก้" class="w-16 h-16 object-cover rounded-full border-2 border-[#E63946]/30 mb-3"/>
+      <div class="font-black text-lg text-gray-900 mb-1">ภูขจรเจริญยนต์</div>
+      <div class="text-gray-500 text-sm mb-3">รถบรรทุกมือสองเกรด A คัดพิเศษ</div>
+      <div class="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+        เปิดให้บริการทุกวัน
+      </div>
+      <a href="https://maps.app.goo.gl/7kGsjmUHf7yx4NHf6" target="_blank" class="flex items-center gap-2 text-[#E63946] font-bold text-sm hover:underline transition-colors">
+        📍 ดูแผนที่ร้านบน Google Maps
+      </a>
+    </div>
+    <div class="border-t border-gray-100 pt-4 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div class="text-gray-400 text-xs">© 2026 ภูขจรเจริญยนต์. All rights reserved.</div>
+      <div class="flex gap-5 text-xs text-gray-400">
+        <a href="#" class="hover:text-[#E63946] transition-colors">นโยบายความเป็นส่วนตัว</a>
+        <a href="#" class="hover:text-[#E63946] transition-colors">เงื่อนไขการใช้งาน</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ FLOATING BUTTONS ══════════ -->
+<div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+  <a href="https://www.facebook.com/p/%E0%B8%A0%E0%B8%B9%E0%B8%82%E0%B8%88%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B9%8C-%E0%B8%A3%E0%B8%96%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87-100086605624902/" target="_blank"
+     class="w-14 h-14 rounded-full bg-[#1877F2] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform font-black text-xl">f</a>
+  <a href="https://line.me/ti/p/0834565049" target="_blank"
+     class="w-14 h-14 rounded-full bg-[#00B900] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform font-black text-xs">LINE</a>
+  <a href="tel:0834565049"
+     class="w-14 h-14 rounded-full bg-[#E63946] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+    <span class="material-symbols-outlined" style="font-size:28px">call</span>
+  </a>
+</div>
+
+</body>
+</html>
