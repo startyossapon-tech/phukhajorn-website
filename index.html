@@ -195,132 +195,44 @@
         <p class="text-gray-500">รถบรรทุกคัดพิเศษ เกรด A พร้อมใช้งานทันที อัปเดตใหม่ทุกวันบน FACEBOOK</p>
       </div>
       <!-- หมวด: 4 ล้อ จัมโบ้ -->
-      <div class="mb-10">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-1 h-6 bg-[#E63946] rounded"></div>
-          <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 4 ล้อ จัมโบ้ (ISUZU / HINO)</h3>
+      <div class="mb-10" id="section-4wheel">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-1 h-6 bg-[#E63946] rounded"></div>
+            <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 4 ล้อ จัมโบ้ (ISUZU / HINO)</h3>
+          </div>
+          <span id="count-4wheel" class="text-xs text-gray-400 font-semibold"></span>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-gray-100 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-gray-300" style="font-size:56px">local_shipping</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span>
-              <div class="font-bold text-gray-900 text-sm">4 ล้อ จัมโบ้ แบบตู้</div>
-              <div class="text-xs text-gray-500 mt-0.5">ตู้แห้ง / ตู้เย็น</div>
-            </div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-gray-100 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-gray-300" style="font-size:56px">local_shipping</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span>
-              <div class="font-bold text-gray-900 text-sm">4 ล้อ จัมโบ้ แบบคอก</div>
-              <div class="text-xs text-gray-500 mt-0.5">คอกเหล็ก / คอกไม้</div>
-            </div>
-          </div>
+        <div id="grid-4wheel" class="grid grid-cols-3 gap-4">
+          <!-- โหลดจาก trucks.json -->
         </div>
       </div>
 
       <!-- หมวด: 6 ล้อ ISUZU -->
-      <div class="mb-10">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-1 h-6 bg-[#E63946] rounded"></div>
-          <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 6 ล้อ ISUZU (ความยาว 3-9 เมตร)</h3>
+      <div class="mb-10" id="section-6wheel_isuzu">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-1 h-6 bg-[#E63946] rounded"></div>
+            <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 6 ล้อ ISUZU (ความยาว 3-9 เมตร)</h3>
+          </div>
+          <span id="count-6wheel_isuzu" class="text-xs text-gray-400 font-semibold"></span>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU NMR130</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU NPR150</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU NQR175</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU FRR190</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU FRR210</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-blue-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-blue-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-blue-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">ISUZU FTR240</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
+        <div id="grid-6wheel_isuzu" class="grid grid-cols-3 gap-4">
+          <!-- โหลดจาก trucks.json -->
         </div>
       </div>
 
       <!-- หมวด: 6 ล้อ HINO -->
-      <div class="mb-4">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-1 h-6 bg-[#E63946] rounded"></div>
-          <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 6 ล้อ HINO (ความยาว 3-9 เมตร)</h3>
+      <div class="mb-4" id="section-6wheel_hino">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-1 h-6 bg-[#E63946] rounded"></div>
+            <h3 class="font-bold text-gray-800 text-lg">รถบรรทุก 6 ล้อ HINO (ความยาว 3-9 เมตร)</h3>
+          </div>
+          <span id="count-6wheel_hino" class="text-xs text-gray-400 font-semibold"></span>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Dominator FC9J 155</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Dominator FC9J 175</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Dominator FC9J 210</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
-          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
-            <div class="aspect-square bg-orange-50 flex flex-col items-center justify-center border-b border-gray-200">
-              <span class="material-symbols-outlined text-orange-200" style="font-size:56px">local_shipping</span>
-              <span class="text-xs text-orange-300 mt-1">รูปตัวอย่าง</span>
-            </div>
-            <div class="p-3 text-center">
-              <span class="inline-block text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded mb-1">รูปตัวอย่าง</span><div class="font-bold text-gray-900 text-xs">HINO Victor FG8J 240</div><div class="text-xs text-gray-500 mt-0.5">คอก/ตู้/เครน</div></div>
-          </div>
+        <div id="grid-6wheel_hino" class="grid grid-cols-3 gap-4">
+          <!-- โหลดจาก trucks.json -->
         </div>
       </div>
       <div class="mt-10 text-center">
@@ -465,5 +377,92 @@
   </a>
 </div>
 
+
+<!-- ══════════ DYNAMIC TRUCK LOADER ══════════ -->
+<script>
+(async function loadStock() {
+  const CATS = ['4wheel', '6wheel_isuzu', '6wheel_hino'];
+
+  function placeholder(cat) {
+    const colors = { '4wheel': 'gray', '6wheel_isuzu': 'blue', '6wheel_hino': 'orange' };
+    const c = colors[cat] || 'gray';
+    const names = {
+      '4wheel': [['4 ล้อ จัมโบ้ แบบตู้','ตู้แห้ง / ตู้เย็น'],['4 ล้อ จัมโบ้ แบบคอก','คอกเหล็ก / คอกไม้']],
+      '6wheel_isuzu': [['ISUZU NMR130','คอก/ตู้/เครน'],['ISUZU NPR150','คอก/ตู้/เครน'],['ISUZU NQR175','คอก/ตู้/เครน'],['ISUZU FRR190','คอก/ตู้/เครน'],['ISUZU FRR210','คอก/ตู้/เครน'],['ISUZU FTR240','คอก/ตู้/เครน']],
+      '6wheel_hino': [['HINO FC9J 155','คอก/ตู้/เครน'],['HINO FC9J 175','คอก/ตู้/เครน'],['HINO FC9J 210','คอก/ตู้/เครน'],['HINO FG8J 240','คอก/ตู้/เครน']],
+    };
+    return (names[cat] || []).map(([name, sub]) => `
+      <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all">
+        <div class="aspect-square bg-${c}-50 flex flex-col items-center justify-center border-b border-gray-200">
+          <span class="material-symbols-outlined text-${c}-200" style="font-size:56px">local_shipping</span>
+          <span class="text-xs text-${c}-300 mt-1">ติดต่อสอบถาม</span>
+        </div>
+        <div class="p-3 text-center">
+          <div class="font-bold text-gray-900 text-xs">${name}</div>
+          <div class="text-xs text-gray-500 mt-0.5">${sub}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  function truckCard(t) {
+    const img = t.images && t.images[0]
+      ? `<img src="${t.images[0]}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-gray-300\\' style=\\'font-size:48px\\'>local_shipping</span>'"/>`
+      : `<span class="material-symbols-outlined text-gray-300" style="font-size:48px">local_shipping</span>`;
+    const priceHtml = t.price
+      ? `<div class="text-[#E63946] font-black text-sm mt-1">${Number(t.price).toLocaleString()} ฿</div>`
+      : '';
+    const metaHtml = [
+      t.year    ? `ปี ${t.year}` : '',
+      t.mileage ? `${Number(t.mileage).toLocaleString()} กม.` : '',
+    ].filter(Boolean).join(' · ');
+    return `
+      <div onclick="window.location='tel:0834565049'"
+        class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E63946]/50 hover:shadow-md transition-all cursor-pointer active:scale-95 transition-transform">
+        <div class="aspect-square bg-gray-100 overflow-hidden flex items-center justify-center">${img}</div>
+        <div class="p-2.5 text-center">
+          <div class="font-bold text-gray-900 text-xs leading-snug line-clamp-2">${t.title}</div>
+          ${t.body ? `<div class="text-xs text-gray-500 mt-0.5">${t.body}</div>` : ''}
+          ${priceHtml}
+          ${metaHtml ? `<div class="text-xs text-gray-400 mt-0.5">${metaHtml}</div>` : ''}
+        </div>
+      </div>`;
+  }
+
+  // Init grids with placeholders while loading
+  CATS.forEach(cat => {
+    const grid = document.getElementById('grid-' + cat);
+    if (grid) grid.innerHTML = placeholder(cat);
+  });
+
+  try {
+    const res = await fetch('trucks.json?t=' + Date.now());
+    if (!res.ok) throw new Error('not found');
+    const data = await res.json();
+    const active = (data.trucks || []).filter(t => t.status !== 'sold');
+
+    CATS.forEach(cat => {
+      const grid  = document.getElementById('grid-' + cat);
+      const count = document.getElementById('count-' + cat);
+      if (!grid) return;
+      const list = active.filter(t => t.category === cat);
+      if (list.length > 0) {
+        grid.innerHTML = list.map(truckCard).join('');
+        if (count) count.textContent = list.length + ' คัน';
+      } else {
+        grid.innerHTML = placeholder(cat);
+        if (count) count.textContent = '';
+      }
+    });
+
+    // Update stock section subtitle with total count
+    if (active.length > 0) {
+      const sub = document.querySelector('#stock .text-gray-500');
+      if (sub) sub.textContent = `สต็อกรถ ${active.length} คัน พร้อมใช้งาน กดที่รถเพื่อสอบถามราคา`;
+    }
+  } catch(_) {
+    // If trucks.json not found, placeholders remain — no error shown to visitors
+  }
+})();
+</script>
 </body>
 </html>

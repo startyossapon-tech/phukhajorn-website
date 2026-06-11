@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<title>Admin - ภูขจรเจริญยนต์</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: { primary: "#E63946", "primary-dark": "#c1121f" },
+        fontFamily: { sans: ["Sukhumvit Set","Noto Sans Thai","sans-serif"] },
+      },
+    },
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet"/>
+<style>
+  @font-face { font-family:'Sukhumvit Set'; src:local('Sukhumvit Set'),local('SukhumvitSet'); }
+  body { font-family:'Sukhumvit Set','Noto Sans Thai',sans-serif; }
+  .material-symbols-outlined {
+    font-family:'Material Symbols Outlined';
+    font-weight:normal; font-style:normal; font-size:24px;
+    display:inline-block; line-height:1; text-transform:none;
+    letter-spacing:normal; word-wrap:normal; white-space:nowrap; direction:ltr;
+  }
+  .view { display:none; }
+  .view.active { display:block; }
+  .spin { animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .slide-up { animation:slideUp .2s ease-out; }
+  @keyframes slideUp { from{transform:translateY(8px);opacity:0} to{transform:translateY(0);opacity:1} }
+  input,select,textarea { -webkit-appearance:none; }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-900 antialiased">
+
+<!-- ══════════ LOGIN ══════════ -->
+<div id="loginScreen" class="min-h-screen flex flex-col items-center justify-center px-5 bg-gradient-to-b from-[#E63946]/10 to-white">
+  <div class="w-full max-w-xs">
+    <div class="text-center mb-8">
+      <div class="w-20 h-20 bg-[#E63946] rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-xl">
+        <span class="material-symbols-outlined text-white" style="font-size:40px">admin_panel_settings</span>
+      </div>
+      <div class="font-black text-2xl text-gray-900">ระบบหลังบ้าน</div>
+      <div class="text-sm text-gray-500 mt-1">ภูขจรเจริญยนต์</div>
+    </div>
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div class="mb-4">
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">รหัสผ่าน</label>
+        <input type="password" id="loginPw"
+          class="w-full border border-gray-300 rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#E63946] focus:border-transparent"
+          placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+      <button onclick="doLogin()"
+        class="w-full bg-[#E63946] text-white py-3.5 rounded-xl font-black text-base active:bg-[#c1121f] transition-colors shadow-sm">
+        เข้าสู่ระบบ
+      </button>
+      <p id="loginErr" class="text-red-500 text-sm text-center mt-3 hidden">รหัสผ่านไม่ถูกต้อง</p>
+    </div>
+    <p class="text-center text-xs text-gray-400 mt-4">ค่าเริ่มต้น: admin1234</p>
+  </div>
+</div>
+
+<!-- ══════════ MAIN APP ══════════ -->
+<div id="mainApp" class="hidden">
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full z-40 bg-[#E63946] shadow-md">
+    <div class="flex items-center justify-between h-14 px-4">
+      <div class="flex items-center gap-2">
+        <button id="headerBack" onclick="showList()" class="hidden w-8 h-8 flex items-center justify-center text-white/80 active:text-white">
+          <span class="material-symbols-outlined" style="font-size:22px">arrow_back</span>
+        </button>
+        <img src="logo_transparent.png" alt="" class="h-10 w-10 object-contain" onerror="this.style.display='none'"/>
+        <span id="headerTitle" class="font-bold text-white text-sm">สต็อกรถ</span>
+      </div>
+      <button onclick="doLogout()" class="flex items-center gap-1 text-white/70 active:text-white text-xs font-semibold px-2 py-1">
+        <span class="material-symbols-outlined" style="font-size:18px">logout</span>
+        ออก
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="pt-14 pb-20">
+
+    <!-- ══ VIEW: LIST ══ -->
+    <div id="viewList" class="view active">
+      <!-- Filter Tabs -->
+      <div class="bg-white border-b border-gray-200 px-4 py-3">
+        <div class="flex gap-2 overflow-x-auto pb-0.5 scrollbar-hide">
+          <button onclick="setFilter(event,'')" data-cat="" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E63946] text-white">ทั้งหมด</button>
+          <button onclick="setFilter(event,'4wheel')" data-cat="4wheel" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600">4 ล้อ จัมโบ้</button>
+          <button onclick="setFilter(event,'6wheel_isuzu')" data-cat="6wheel_isuzu" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600">6 ล้อ ISUZU</button>
+          <button onclick="setFilter(event,'6wheel_hino')" data-cat="6wheel_hino" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600">6 ล้อ HINO</button>
+          <button onclick="setFilter(event,'sold')" data-cat="sold" class="filter-btn flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600">ขายแล้ว</button>
+        </div>
+      </div>
+
+      <!-- Stats + Add button -->
+      <div class="flex items-center justify-between px-4 py-3">
+        <div id="listStats" class="text-xs text-gray-500 font-medium">กำลังโหลด...</div>
+        <button onclick="openForm(null)"
+          class="flex items-center gap-1.5 bg-[#E63946] text-white px-4 py-2 rounded-xl font-bold text-xs shadow-sm active:bg-[#c1121f]">
+          <span class="material-symbols-outlined" style="font-size:16px">add</span>
+          เพิ่มรถ
+        </button>
+      </div>
+
+      <!-- Truck Cards -->
+      <div id="truckCards" class="px-4 flex flex-col gap-3 pb-4">
+        <div class="text-center py-12 text-gray-400">
+          <div class="spin w-8 h-8 border-2 border-[#E63946] border-t-transparent rounded-full mx-auto mb-3"></div>
+          <p class="text-sm">กำลังโหลด...</p>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div id="emptyState" class="hidden text-center px-4 py-16">
+        <span class="material-symbols-outlined text-gray-200" style="font-size:72px">local_shipping</span>
+        <p class="text-gray-400 font-semibold mt-3 mb-5">ยังไม่มีรถในสต็อก</p>
+        <button onclick="openForm(null)" class="bg-[#E63946] text-white px-7 py-3 rounded-xl font-black text-sm shadow-sm">
+          + เพิ่มรถคันแรก
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ VIEW: FORM ══ -->
+    <div id="viewForm" class="view">
+      <form id="truckForm" class="px-4 py-4 flex flex-col gap-4" onsubmit="submitTruck(event)">
+        <input type="hidden" id="fId"/>
+
+        <!-- Images -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:20px">photo_library</span>
+            <span class="font-bold text-gray-800 text-sm">รูปภาพรถ</span>
+            <span class="text-xs text-gray-400">(สูงสุด 10 รูป)</span>
+          </div>
+          <div id="imgPreviewGrid" class="grid grid-cols-3 gap-2 mb-3"></div>
+          <label class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-xl py-5 cursor-pointer active:bg-gray-50 transition-colors">
+            <span class="material-symbols-outlined text-gray-300" style="font-size:32px">add_photo_alternate</span>
+            <span class="text-sm text-gray-400 font-semibold">ถ่ายรูป / เลือกจากคลัง</span>
+            <input type="file" id="imgInput" accept="image/*" multiple class="hidden" onchange="onImageSelect(event)"/>
+          </label>
+        </div>
+
+        <!-- Basic Info -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 flex flex-col gap-3.5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:20px">info</span>
+            <span class="font-bold text-gray-800 text-sm">ข้อมูลพื้นฐาน</span>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">ชื่อรถ / รุ่น *</label>
+            <input type="text" id="fTitle" required
+              class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] focus:border-transparent bg-gray-50"
+              placeholder="เช่น ISUZU NMR130 คอก ปี 62"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">ประเภทรถ *</label>
+              <select id="fCategory" required
+                class="w-full border border-gray-200 rounded-xl px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50">
+                <option value="">-- เลือก --</option>
+                <option value="4wheel">4 ล้อ จัมโบ้</option>
+                <option value="6wheel_isuzu">6 ล้อ ISUZU</option>
+                <option value="6wheel_hino">6 ล้อ HINO</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">ตัวถัง</label>
+              <select id="fBody"
+                class="w-full border border-gray-200 rounded-xl px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50">
+                <option value="คอก">คอก</option>
+                <option value="ตู้แห้ง">ตู้แห้ง</option>
+                <option value="ตู้เย็น">ตู้เย็น</option>
+                <option value="เครน">เครน</option>
+                <option value="ดั้ม">ดั้ม</option>
+                <option value="สไลด์">สไลด์</option>
+                <option value="อื่นๆ">อื่นๆ</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specs -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:20px">tune</span>
+            <span class="font-bold text-gray-800 text-sm">สเปครถ & ราคา</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">ปีรถ (พ.ศ.)</label>
+              <input type="number" id="fYear" min="2540" max="2580"
+                class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+                placeholder="เช่น 2562"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">เลขไมล์ (กม.)</label>
+              <input type="number" id="fMileage" min="0"
+                class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+                placeholder="เช่น 120000"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">ราคา (บาท) *</label>
+              <input type="number" id="fPrice" required min="0"
+                class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+                placeholder="เช่น 850000"/>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">สถานะ</label>
+              <select id="fStatus"
+                class="w-full border border-gray-200 rounded-xl px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50">
+                <option value="available">ขายอยู่</option>
+                <option value="sold">ขายแล้ว</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-[#E63946]" style="font-size:20px">notes</span>
+            <span class="font-bold text-gray-800 text-sm">รายละเอียดเพิ่มเติม</span>
+          </div>
+          <textarea id="fDesc" rows="4"
+            class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50 resize-none"
+            placeholder="สภาพ เครื่อง ตัวถัง ความพิเศษของรถคันนี้..."></textarea>
+        </div>
+
+        <!-- Save -->
+        <button type="submit" id="btnSave"
+          class="w-full bg-[#E63946] text-white py-4 rounded-2xl font-black text-base shadow-md active:bg-[#c1121f] flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:22px">cloud_upload</span>
+          บันทึกและอัพโหลด
+        </button>
+
+        <!-- Delete -->
+        <button type="button" id="btnDelete" onclick="deleteTruck()"
+          class="hidden w-full bg-white border-2 border-red-100 text-red-400 py-3.5 rounded-2xl font-bold text-sm active:bg-red-50 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:18px">delete_forever</span>
+          ลบรถคันนี้ออกจากสต็อก
+        </button>
+      </form>
+    </div>
+
+    <!-- ══ VIEW: SETTINGS ══ -->
+    <div id="viewSettings" class="view px-4 py-4 flex flex-col gap-4">
+
+      <!-- GitHub Config -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-4">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="white" class="w-5 h-5"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <span class="font-bold text-gray-800">GitHub Repository</span>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">GitHub Username (Owner)</label>
+            <input type="text" id="sOwner" autocapitalize="none" autocorrect="off"
+              class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+              placeholder="เช่น startyossapon-tech"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">Repository Name</label>
+            <input type="text" id="sRepo" autocapitalize="none" autocorrect="off"
+              class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+              placeholder="เช่น startyossapon-tech.github.io"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">Branch</label>
+            <input type="text" id="sBranch" autocapitalize="none" autocorrect="off"
+              class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+              placeholder="main"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1.5">Personal Access Token (PAT)</label>
+            <input type="password" id="sToken" autocapitalize="none" autocorrect="off"
+              class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+              placeholder="ghp_xxxxxxxxxxxx"/>
+            <p class="text-xs text-gray-400 mt-1">ต้องมีสิทธิ์: Contents (read & write)</p>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button onclick="testGitHub()"
+            class="flex-1 border border-gray-300 text-gray-700 py-3 rounded-xl font-bold text-sm active:bg-gray-50">
+            ทดสอบ
+          </button>
+          <button onclick="saveSettings()"
+            class="flex-1 bg-[#E63946] text-white py-3 rounded-xl font-bold text-sm active:bg-[#c1121f]">
+            บันทึก
+          </button>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-4">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-[#E63946]" style="font-size:20px">lock</span>
+          <span class="font-bold text-gray-800">เปลี่ยนรหัสผ่าน</span>
+        </div>
+        <div class="flex flex-col gap-3">
+          <input type="password" id="sNewPw"
+            class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+            placeholder="รหัสผ่านใหม่"/>
+          <input type="password" id="sConfPw"
+            class="w-full border border-gray-200 rounded-xl px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#E63946] bg-gray-50"
+            placeholder="ยืนยันรหัสผ่านใหม่"/>
+          <button onclick="changePw()"
+            class="w-full bg-gray-800 text-white py-3 rounded-xl font-bold text-sm active:bg-gray-700">
+            เปลี่ยนรหัสผ่าน
+          </button>
+        </div>
+      </div>
+
+      <!-- How to -->
+      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4">
+        <p class="font-bold text-blue-800 mb-2 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-blue-500" style="font-size:18px">help</span>
+          วิธีใช้งาน
+        </p>
+        <ol class="list-decimal pl-5 text-xs text-blue-700 space-y-1.5 leading-relaxed">
+          <li>สร้าง GitHub Personal Access Token ที่ github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens</li>
+          <li>ตั้งค่า Repository permissions: Contents = Read and write</li>
+          <li>กรอก Username, Repo, Branch (main), Token แล้วกด "บันทึก"</li>
+          <li>กด "ทดสอบ" เพื่อยืนยันการเชื่อมต่อ</li>
+          <li>กลับหน้าสต็อก กด + เพิ่มรถ อัพโหลดรูป กรอกข้อมูล กด "บันทึกและอัพโหลด"</li>
+          <li>รถจะขึ้นบนเว็บหลักทันที (อาจรอ GitHub Actions 1-2 นาที)</li>
+        </ol>
+      </div>
+
+      <!-- Version -->
+      <p class="text-center text-xs text-gray-400 pb-2">Admin Panel v1.0 · ภูขจรเจริญยนต์ © 2026</p>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 w-full bg-white border-t border-gray-100 z-40 shadow-lg">
+    <div class="flex items-stretch">
+      <button onclick="switchView('list')" id="navList"
+        class="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 text-[#E63946] active:bg-gray-50">
+        <span class="material-symbols-outlined" style="font-size:22px">inventory_2</span>
+        <span class="text-xs font-bold">สต็อกรถ</span>
+      </button>
+      <button onclick="openForm(null)"
+        class="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 text-gray-400 active:bg-gray-50">
+        <div class="w-11 h-11 bg-[#E63946] rounded-full flex items-center justify-center shadow-lg -mt-6">
+          <span class="material-symbols-outlined text-white" style="font-size:26px">add</span>
+        </div>
+        <span class="text-xs font-bold mt-1">เพิ่มรถ</span>
+      </button>
+      <button onclick="switchView('settings')" id="navSettings"
+        class="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 text-gray-400 active:bg-gray-50">
+        <span class="material-symbols-outlined" style="font-size:22px">settings</span>
+        <span class="text-xs font-bold">ตั้งค่า</span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- ══════════ TOAST ══════════ -->
+<div id="toast" class="fixed top-16 inset-x-4 z-[100] hidden">
+  <div id="toastMsg" class="rounded-xl py-3 px-4 text-sm font-bold text-center shadow-xl slide-up"></div>
+</div>
+
+<!-- ══════════ LOADING ══════════ -->
+<div id="loading" class="fixed inset-0 bg-black/60 z-[200] hidden flex items-center justify-center backdrop-blur-sm">
+  <div class="bg-white rounded-2xl px-10 py-8 text-center shadow-2xl mx-5">
+    <div class="spin w-10 h-10 border-4 border-[#E63946] border-t-transparent rounded-full mx-auto mb-4"></div>
+    <p id="loadingMsg" class="text-gray-700 font-bold text-sm">กำลังอัพโหลด...</p>
+    <p id="loadingSub" class="text-gray-400 text-xs mt-1"></p>
+  </div>
+</div>
+
+<!-- ══════════ CONFIRM DIALOG ══════════ -->
+<div id="confirmDialog" class="fixed inset-0 bg-black/50 z-[300] hidden flex items-end sm:items-center justify-center">
+  <div class="bg-white rounded-t-3xl sm:rounded-2xl w-full sm:max-w-sm p-6 shadow-2xl">
+    <p class="font-black text-gray-900 text-center text-lg mb-2">ยืนยันการลบ</p>
+    <p class="text-gray-500 text-sm text-center mb-6">รถคันนี้จะถูกลบออกจากสต็อก และรูปภาพทั้งหมดจะถูกลบด้วย</p>
+    <div class="flex gap-3">
+      <button onclick="closeConfirm()" class="flex-1 border border-gray-200 text-gray-600 py-3 rounded-xl font-bold text-sm">ยกเลิก</button>
+      <button onclick="confirmDelete()" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold text-sm">ลบเลย</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let trucks = [];
+let currentFilter = '';
+let editingId = null;
+let pendingImgs = []; // {dataUrl, isNew, path, file}
+let pendingDelete = null;
+let toastTimer = null;
+
+// ══════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════
+const DEFAULT_PW = 'admin1234';
+
+function getPw() { return localStorage.getItem('pso_pw') || DEFAULT_PW; }
+
+function doLogin() {
+  const pw = document.getElementById('loginPw').value;
+  document.getElementById('loginErr').classList.add('hidden');
+  if (pw === getPw()) {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').classList.remove('hidden');
+    loadSettings();
+    loadTrucks();
+  } else {
+    document.getElementById('loginErr').classList.remove('hidden');
+    document.getElementById('loginPw').value = '';
+  }
+}
+
+function doLogout() {
+  document.getElementById('mainApp').classList.add('hidden');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('loginPw').value = '';
+}
+
+function changePw() {
+  const np = document.getElementById('sNewPw').value;
+  const cp = document.getElementById('sConfPw').value;
+  if (!np || np.length < 4) { showToast('รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร', 'error'); return; }
+  if (np !== cp) { showToast('รหัสผ่านไม่ตรงกัน', 'error'); return; }
+  localStorage.setItem('pso_pw', np);
+  document.getElementById('sNewPw').value = '';
+  document.getElementById('sConfPw').value = '';
+  showToast('เปลี่ยนรหัสผ่านสำเร็จ ✓', 'success');
+}
+
+// ══════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════
+function getCfg() {
+  return {
+    owner: localStorage.getItem('gh_owner') || '',
+    repo:  localStorage.getItem('gh_repo')  || '',
+    branch:localStorage.getItem('gh_branch')|| 'main',
+    token: localStorage.getItem('gh_token') || '',
+  };
+}
+
+function loadSettings() {
+  const c = getCfg();
+  document.getElementById('sOwner').value  = c.owner;
+  document.getElementById('sRepo').value   = c.repo;
+  document.getElementById('sBranch').value = c.branch;
+  document.getElementById('sToken').value  = c.token;
+}
+
+function saveSettings() {
+  localStorage.setItem('gh_owner',  document.getElementById('sOwner').value.trim());
+  localStorage.setItem('gh_repo',   document.getElementById('sRepo').value.trim());
+  localStorage.setItem('gh_branch', document.getElementById('sBranch').value.trim() || 'main');
+  localStorage.setItem('gh_token',  document.getElementById('sToken').value.trim());
+  showToast('บันทึกการตั้งค่าสำเร็จ ✓', 'success');
+}
+
+async function testGitHub() {
+  const c = getCfg();
+  if (!c.token || !c.owner || !c.repo) { showToast('กรอกข้อมูลให้ครบก่อน', 'error'); return; }
+  showLoading('กำลังทดสอบการเชื่อมต่อ...');
+  try {
+    await ghGet('trucks.json');
+    hideLoading();
+    showToast('✓ เชื่อมต่อสำเร็จ! พบ trucks.json', 'success');
+  } catch(e) {
+    hideLoading();
+    if (e.status === 404) {
+      showToast('✓ เชื่อมต่อได้! ยังไม่มี trucks.json (จะสร้างอัตโนมัติ)', 'success');
+    } else {
+      showToast('✗ เชื่อมต่อไม่ได้: ' + e.message, 'error');
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+// GITHUB API
+// ══════════════════════════════════════════
+function apiBase() {
+  const c = getCfg();
+  return `https://api.github.com/repos/${c.owner}/${c.repo}/contents`;
+}
+
+function apiHeaders() {
+  return {
+    'Authorization': `Bearer ${getCfg().token}`,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  };
+}
+
+async function ghGet(path) {
+  const c = getCfg();
+  const r = await fetch(`${apiBase()}/${path}?ref=${c.branch}`, { headers: apiHeaders() });
+  if (!r.ok) { const e = new Error(r.statusText); e.status = r.status; throw e; }
+  return r.json();
+}
+
+async function ghPut(path, textContent, message, sha = null) {
+  const c = getCfg();
+  const encoded = btoa(unescape(encodeURIComponent(textContent)));
+  const body = { message, content: encoded, branch: c.branch };
+  if (sha) body.sha = sha;
+  const r = await fetch(`${apiBase()}/${path}`, {
+    method: 'PUT', headers: apiHeaders(), body: JSON.stringify(body),
+  });
+  if (!r.ok) { const d = await r.json(); throw new Error(d.message || r.statusText); }
+  return r.json();
+}
+
+async function ghPutBin(path, base64Content, message, sha = null) {
+  const c = getCfg();
+  const body = { message, content: base64Content, branch: c.branch };
+  if (sha) body.sha = sha;
+  const r = await fetch(`${apiBase()}/${path}`, {
+    method: 'PUT', headers: apiHeaders(), body: JSON.stringify(body),
+  });
+  if (!r.ok) { const d = await r.json(); throw new Error(d.message || r.statusText); }
+  return r.json();
+}
+
+async function ghDelete(path, message, sha) {
+  const c = getCfg();
+  const r = await fetch(`${apiBase()}/${path}`, {
+    method: 'DELETE',
+    headers: apiHeaders(),
+    body: JSON.stringify({ message, sha, branch: c.branch }),
+  });
+  if (!r.ok) throw new Error(r.statusText);
+}
+
+// ══════════════════════════════════════════
+// TRUCKS DATA
+// ══════════════════════════════════════════
+async function loadTrucks() {
+  const c = getCfg();
+  if (!c.token || !c.owner || !c.repo) {
+    document.getElementById('listStats').textContent = '⚠️ ยังไม่ได้ตั้งค่า GitHub — ไปที่แท็บ ตั้งค่า';
+    document.getElementById('truckCards').innerHTML = '';
+    document.getElementById('emptyState').classList.remove('hidden');
+    return;
+  }
+  document.getElementById('truckCards').innerHTML = `
+    <div class="text-center py-12 text-gray-400">
+      <div class="spin w-8 h-8 border-2 border-[#E63946] border-t-transparent rounded-full mx-auto mb-3"></div>
+      <p class="text-sm">กำลังโหลด...</p>
+    </div>`;
+  document.getElementById('emptyState').classList.add('hidden');
+  try {
+    const data = await ghGet('trucks.json');
+    const json = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+    trucks = json.trucks || [];
+  } catch(e) {
+    if (e.status === 404) {
+      trucks = [];
+    } else {
+      showToast('โหลดข้อมูลไม่สำเร็จ: ' + e.message, 'error');
+      trucks = [];
+    }
+  }
+  renderList();
+}
+
+async function saveTrucksJson(msg) {
+  const json = JSON.stringify({ trucks, lastUpdated: new Date().toISOString().split('T')[0] }, null, 2);
+  let sha = null;
+  try { const d = await ghGet('trucks.json'); sha = d.sha; } catch(e) {}
+  await ghPut('trucks.json', json, msg, sha);
+}
+
+// ══════════════════════════════════════════
+// RENDER LIST
+// ══════════════════════════════════════════
+function catLabel(cat) {
+  return { '4wheel':'4 ล้อ จัมโบ้', '6wheel_isuzu':'6 ล้อ ISUZU', '6wheel_hino':'6 ล้อ HINO' }[cat] || cat;
+}
+
+function renderList() {
+  const avail = trucks.filter(t => t.status !== 'sold');
+  const sold  = trucks.filter(t => t.status === 'sold');
+
+  let filtered;
+  if (currentFilter === 'sold') filtered = sold;
+  else if (currentFilter) filtered = avail.filter(t => t.category === currentFilter);
+  else filtered = avail;
+
+  const statsAvail = `ขายอยู่ ${avail.length} คัน`;
+  const statsSold  = sold.length ? ` · ขายแล้ว ${sold.length} คัน` : '';
+  document.getElementById('listStats').textContent = statsAvail + statsSold;
+
+  const container = document.getElementById('truckCards');
+  const empty = document.getElementById('emptyState');
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+
+  container.innerHTML = filtered.map(t => {
+    const img = t.images && t.images[0]
+      ? `<img src="${t.images[0]}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-gray-300\\' style=\\'font-size:36px\\'>local_shipping</span>'"/>`
+      : `<span class="material-symbols-outlined text-gray-300" style="font-size:36px">local_shipping</span>`;
+    const statusBadge = t.status === 'sold'
+      ? `<span class="text-xs bg-gray-400 text-white px-2 py-0.5 rounded-full">ขายแล้ว</span>`
+      : `<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">ขายอยู่</span>`;
+    return `
+    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm active:shadow-md transition-all">
+      <div class="flex gap-3 p-3">
+        <div class="w-24 h-24 rounded-xl bg-gray-100 flex-shrink-0 overflow-hidden flex items-center justify-center">${img}</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-2 mb-1">
+            <h3 class="font-bold text-gray-900 text-sm leading-snug flex-1 line-clamp-2">${t.title}</h3>
+            ${statusBadge}
+          </div>
+          <div class="flex flex-wrap gap-1 mb-2">
+            <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">${catLabel(t.category)}</span>
+            ${t.body ? `<span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">${t.body}</span>` : ''}
+          </div>
+          <div class="flex items-end justify-between">
+            <div>
+              ${t.price ? `<div class="text-[#E63946] font-black text-sm">${Number(t.price).toLocaleString()} ฿</div>` : ''}
+              <div class="text-xs text-gray-400">${t.year ? 'ปี ' + t.year : ''}${t.mileage ? ' · ' + Number(t.mileage).toLocaleString() + ' กม.' : ''}</div>
+            </div>
+            <button onclick="openForm('${t.id}')"
+              class="flex items-center gap-1 text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1.5 rounded-xl active:bg-[#E63946] active:text-white transition-colors">
+              <span class="material-symbols-outlined" style="font-size:14px">edit</span> แก้ไข
+            </button>
+          </div>
+        </div>
+      </div>
+      ${t.images && t.images.length > 1 ? `<div class="px-3 pb-2 text-xs text-gray-400">${t.images.length} รูป</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function setFilter(e, cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.remove('bg-[#E63946]', 'text-white');
+    b.classList.add('bg-gray-100', 'text-gray-600');
+  });
+  e.currentTarget.classList.add('bg-[#E63946]', 'text-white');
+  e.currentTarget.classList.remove('bg-gray-100', 'text-gray-600');
+  renderList();
+}
+
+// ══════════════════════════════════════════
+// VIEWS
+// ══════════════════════════════════════════
+function switchView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+
+  const titles = { list:'สต็อกรถ', form:'', settings:'ตั้งค่า' };
+  document.getElementById('headerTitle').textContent = titles[name] || '';
+  document.getElementById('headerBack').classList.toggle('hidden', name !== 'form');
+
+  const navList     = document.getElementById('navList');
+  const navSettings = document.getElementById('navSettings');
+  navList.className     = navList.className.replace(/text-\S+/g, '') + (name === 'list'     ? ' text-[#E63946]' : ' text-gray-400');
+  navSettings.className = navSettings.className.replace(/text-\S+/g, '') + (name === 'settings' ? ' text-[#E63946]' : ' text-gray-400');
+
+  window.scrollTo(0, 0);
+}
+
+function showList() {
+  switchView('list');
+  loadTrucks();
+}
+
+// ══════════════════════════════════════════
+// FORM
+// ══════════════════════════════════════════
+function openForm(id) {
+  editingId = id;
+  pendingImgs = [];
+  document.getElementById('truckForm').reset();
+  document.getElementById('imgPreviewGrid').innerHTML = '';
+
+  if (id) {
+    const t = trucks.find(x => x.id === id);
+    if (!t) return;
+    document.getElementById('fId').value       = id;
+    document.getElementById('fTitle').value    = t.title || '';
+    document.getElementById('fCategory').value = t.category || '';
+    document.getElementById('fBody').value     = t.body || 'คอก';
+    document.getElementById('fYear').value     = t.year || '';
+    document.getElementById('fMileage').value  = t.mileage || '';
+    document.getElementById('fPrice').value    = t.price || '';
+    document.getElementById('fStatus').value   = t.status || 'available';
+    document.getElementById('fDesc').value     = t.description || '';
+    document.getElementById('btnDelete').classList.remove('hidden');
+    document.getElementById('headerTitle').textContent = 'แก้ไขรถ';
+    pendingImgs = (t.images || []).map(p => ({ dataUrl: p, isNew: false, path: p }));
+  } else {
+    document.getElementById('fId').value = '';
+    document.getElementById('btnDelete').classList.add('hidden');
+    document.getElementById('headerTitle').textContent = 'เพิ่มรถใหม่';
+  }
+
+  renderImgPreviews();
+  switchView('form');
+}
+
+// ══════════════════════════════════════════
+// IMAGES
+// ══════════════════════════════════════════
+function onImageSelect(e) {
+  const files = Array.from(e.target.files);
+  if (pendingImgs.length + files.length > 10) {
+    showToast('อัพโหลดได้สูงสุด 10 รูปต่อคัน', 'error');
+    e.target.value = '';
+    return;
+  }
+  files.forEach(f => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      pendingImgs.push({ dataUrl: ev.target.result, isNew: true, file: f, path: null });
+      renderImgPreviews();
+    };
+    reader.readAsDataURL(f);
+  });
+  e.target.value = '';
+}
+
+function removeImg(i) {
+  pendingImgs.splice(i, 1);
+  renderImgPreviews();
+}
+
+function renderImgPreviews() {
+  document.getElementById('imgPreviewGrid').innerHTML = pendingImgs.map((img, i) => `
+    <div class="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
+      <img src="${img.dataUrl}" class="w-full h-full object-cover"/>
+      <button type="button" onclick="removeImg(${i})"
+        class="absolute top-1 right-1 w-6 h-6 bg-black/60 text-white rounded-full flex items-center justify-center text-xs font-black leading-none active:bg-red-500 transition-colors" style="line-height:1">×</button>
+      ${i === 0 ? `<div class="absolute bottom-0 left-0 right-0 bg-[#E63946] text-white text-xs text-center py-0.5 font-bold">หน้าปก</div>` : ''}
+      ${img.isNew ? `<div class="absolute top-1 left-1 bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">ใหม่</div>` : ''}
+    </div>`).join('');
+}
+
+async function compressImg(dataUrl, maxW = 1400, q = 0.82) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      let { width: w, height: h } = img;
+      if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', q));
+    };
+    img.src = dataUrl;
+  });
+}
+
+function toBase64(dataUrl) { return dataUrl.split(',')[1]; }
+
+// ══════════════════════════════════════════
+// SAVE TRUCK
+// ══════════════════════════════════════════
+async function submitTruck(e) {
+  e.preventDefault();
+  const c = getCfg();
+  if (!c.token || !c.owner || !c.repo) {
+    showToast('กรุณาตั้งค่า GitHub ก่อน', 'error');
+    switchView('settings');
+    return;
+  }
+
+  const id    = editingId || ('truck_' + Date.now());
+  const title = document.getElementById('fTitle').value.trim();
+  const cat   = document.getElementById('fCategory').value;
+  const body  = document.getElementById('fBody').value;
+  const year  = document.getElementById('fYear').value;
+  const mile  = document.getElementById('fMileage').value;
+  const price = document.getElementById('fPrice').value;
+  const stat  = document.getElementById('fStatus').value;
+  const desc  = document.getElementById('fDesc').value.trim();
+
+  const newImgs  = pendingImgs.filter(x => x.isNew);
+  const keepImgs = pendingImgs.filter(x => !x.isNew);
+
+  showLoading('กำลังเตรียมรูปภาพ...', `${newImgs.length} รูปใหม่`);
+
+  const imagePaths = [];
+  // Rebuild in pendingImgs order
+  for (let i = 0; i < pendingImgs.length; i++) {
+    const img = pendingImgs[i];
+    if (!img.isNew) {
+      imagePaths.push(img.path);
+    } else {
+      // Upload
+      const filename = `images/trucks/${id}_img${i}.jpg`;
+      document.getElementById('loadingMsg').textContent = `อัพโหลดรูป ${imagePaths.filter((_,j) => pendingImgs[j]?.isNew).length + 1}/${newImgs.length}`;
+      document.getElementById('loadingSub').textContent = filename;
+      try {
+        const compressed = await compressImg(img.dataUrl);
+        const b64 = toBase64(compressed);
+        // Check if file already exists (for replace)
+        let oldSha = null;
+        try { const d = await ghGet(filename); oldSha = d.sha; } catch(_) {}
+        await ghPutBin(filename, b64, `Upload image for ${id}`, oldSha);
+        imagePaths.push(filename);
+      } catch(err) {
+        hideLoading();
+        showToast('อัพโหลดรูปไม่สำเร็จ: ' + err.message, 'error');
+        return;
+      }
+    }
+  }
+
+  showLoading('กำลังบันทึกข้อมูลรถ...');
+
+  const truckObj = {
+    id, title, category: cat, body, status: stat,
+    year: year ? +year : null,
+    mileage: mile ? +mile : null,
+    price: price ? +price : null,
+    description: desc,
+    images: imagePaths,
+    updatedAt: new Date().toISOString().split('T')[0],
+  };
+
+  if (editingId) {
+    const idx = trucks.findIndex(t => t.id === editingId);
+    if (idx >= 0) {
+      truckObj.createdAt = trucks[idx].createdAt;
+      trucks[idx] = truckObj;
+    }
+  } else {
+    truckObj.createdAt = new Date().toISOString().split('T')[0];
+    trucks.unshift(truckObj);
+  }
+
+  try {
+    await saveTrucksJson(editingId ? `Update truck: ${title}` : `Add truck: ${title}`);
+    hideLoading();
+    showToast(editingId ? '✓ อัพเดทข้อมูลรถสำเร็จ' : '✓ เพิ่มรถใหม่สำเร็จ', 'success');
+    showList();
+  } catch(err) {
+    hideLoading();
+    showToast('บันทึกไม่สำเร็จ: ' + err.message, 'error');
+  }
+}
+
+// ══════════════════════════════════════════
+// DELETE TRUCK
+// ══════════════════════════════════════════
+function deleteTruck() {
+  if (!editingId) return;
+  pendingDelete = editingId;
+  document.getElementById('confirmDialog').classList.remove('hidden');
+}
+
+function closeConfirm() {
+  document.getElementById('confirmDialog').classList.add('hidden');
+  pendingDelete = null;
+}
+
+async function confirmDelete() {
+  closeConfirm();
+  if (!pendingDelete) return;
+  const truck = trucks.find(t => t.id === pendingDelete);
+  if (!truck) return;
+
+  showLoading('กำลังลบรถออกจากสต็อก...');
+
+  // Try to delete images
+  for (const imgPath of (truck.images || [])) {
+    try {
+      const d = await ghGet(imgPath);
+      await ghDelete(imgPath, `Remove image for ${truck.id}`, d.sha);
+    } catch(_) {}
+  }
+
+  trucks = trucks.filter(t => t.id !== pendingDelete);
+
+  try {
+    await saveTrucksJson(`Remove truck: ${truck.title}`);
+    hideLoading();
+    showToast('✓ ลบรถออกจากสต็อกแล้ว', 'success');
+    showList();
+  } catch(e) {
+    hideLoading();
+    showToast('ลบไม่สำเร็จ: ' + e.message, 'error');
+  }
+}
+
+// ══════════════════════════════════════════
+// UI HELPERS
+// ══════════════════════════════════════════
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toastMsg');
+  m.textContent = msg;
+  m.className = 'rounded-xl py-3 px-4 text-sm font-bold text-center shadow-xl slide-up ' +
+    (type === 'success' ? 'bg-gray-900 text-white' : 'bg-red-500 text-white');
+  t.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.add('hidden'), 3200);
+}
+
+function showLoading(msg, sub = '') {
+  document.getElementById('loadingMsg').textContent = msg;
+  document.getElementById('loadingSub').textContent = sub;
+  document.getElementById('loading').classList.remove('hidden');
+}
+
+function hideLoading() {
+  document.getElementById('loading').classList.add('hidden');
+}
+</script>
+</body>
+</html>
